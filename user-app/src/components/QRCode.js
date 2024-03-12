@@ -5,7 +5,8 @@ import {DEFAULT_URL} from "../index";
 
 window.Swal = Swal;
 
-function QRCode() {
+function QRCode({onAdd}) {
+
     const [isEnabled, setEnabled] = useState(false);
     const [qrMessage, setQrMessage] = useState("");
 
@@ -50,9 +51,9 @@ function QRCode() {
             const handleResponse = (text) => {
                     let response = JSON.parse(text);
                     if (response.status === 200) {
-                       alert(response.answer)
+                        onAdd(response.answer)
                     } else {
-                        alert("Error");
+                        alert("Возникла ошибка сканирования! Попробуйте еще раз.");
                     }
                 }
             ;
