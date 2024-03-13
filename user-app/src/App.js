@@ -14,13 +14,15 @@ class App extends React.Component {
         }
         this.addToOrder = this.addToOrder.bind(this)
         this.deleteOrder = this.deleteOrder.bind(this)
+        this.deleteOrders = this.deleteOrders.bind(this)
+
 
     }
 
     render() {
         return (
             <div className="App">
-                <Header orders={this.state.orders} onDelete={this.deleteOrder}/>
+                <Header orders={this.state.orders} onDelete={this.deleteOrder} fullDelete = {this.deleteOrders}/>
                 <QRCode onAdd={this.addToOrder}/>
                 <Footer/>
             </div>
@@ -29,6 +31,10 @@ class App extends React.Component {
 
     deleteOrder(id) {
         this.setState({orders: this.state.orders.filter(el => el.id !== id)})
+    }
+
+    deleteOrders(id) {
+        this.setState({orders: []})
     }
 
     addToOrder(item) {

@@ -22,13 +22,9 @@ code {
     font-size: 48px;
 }
 
-.foot {
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 10%;
-    background: #F8B195;
-    color: white;
+footer {
+    float: right;
+
 }
 
 header ul.nav {
@@ -161,6 +157,22 @@ video {
     font-size: 18px;
     color: black;
     text-align: center;
+}
+
+.button {
+    transition-duration: 0.4s;
+    width: 25%;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: #F8B195; /* Green */
+    color: white;
+}
+
+.a{
+    font-size: 18px;
 }
 
 .start-button {

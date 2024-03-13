@@ -37,7 +37,6 @@ function QRCode({onAdd}) {
                     setEnabled(true)
                 )
 
-                //Отправить запрос
                 let req = new XMLHttpRequest();
                 req.open("GET", `${DEFAULT_URL}/products?code=${qrMessage}`, true);
                 req.onload = () => handleResponse(req.responseText);
