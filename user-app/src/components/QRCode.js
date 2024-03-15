@@ -11,18 +11,18 @@ function QRCode({onAdd}) {
     const [qrMessage, setQrMessage] = useState("");
 
     useEffect(() => {
-            const config = {fps: 10, qrbox: {width: 200, height: 200}};
+        const config = {fps: 10, qrbox: {width: 200, height: 200}};
 
-            const html5QrCode = new Html5Qrcode("qrCodeContainer");
+        const html5QrCode = new Html5Qrcode("qrCodeContainer");
 
-            const qrScanerStop = () => {
-                if (html5QrCode && html5QrCode.isScanning) {
+        const qrScanerStop = () => {
+            if (html5QrCode && html5QrCode.isScanning) {
                     html5QrCode
                         .stop()
                         .then((ignore) => console.log("Scaner stop"))
                         .catch((err) => console.log("Scaner error"));
-                }
-            };
+            }
+        };
 
             const qrCodeSuccess = (decodedText) => {
                 setQrMessage(decodedText);
@@ -38,7 +38,7 @@ function QRCode({onAdd}) {
                 )
 
                 let req = new XMLHttpRequest();
-                req.open("GET", `${DEFAULT_URL}/products?code=${qrMessage}`, true);
+                req.open("GET", `http://localhost:8080/products?code=1456`, true);
                 req.onload = () => handleResponse(req.responseText);
                 req.onerror = () => alert("Сервер временно недоступен");
                 req.setRequestHeader('Content-Type', 'application/json');
@@ -48,7 +48,8 @@ function QRCode({onAdd}) {
             };
 
             const handleResponse = (text) => {
-                    let response = JSON.parse(text);
+                alert(text)
+                let response = JSON.parse(text);
                     if (response.status === 200) {
                         onAdd(response.answer)
                     } else {
@@ -67,7 +68,7 @@ function QRCode({onAdd}) {
             return () => {
                 qrScanerStop();
             };
-        }, [isEnabled]
+        }, [isEnabled, onAdd]
     )
     ;
 

@@ -1,32 +1,33 @@
 {
-  "name": "user-app",
-  "version": "0.1.0",
+  "name": "vk-auth-react",
+  "version": "0.0.1",
   "private": true,
+  "author": "Andrew Boev",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "express": "^4.18.3",
-    "qrcode": "^1.5.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@types/node": "^14.0.27",
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "html5-qrcode": "^2.3.8",
+    "mobx": "^5.15.4",
+    "mobx-react": "^6.2.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-icons": "^5.0.1",
-    "react-scripts": "5.0.1",
-    "sass": "^1.71.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
     "sweetalert2": "^11.10.6",
-    "web-vitals": "^2.1.4"
+    "typescript": "~3.9.7"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "dev": "cross-env REACT_APP_API_HOST=http://localhost:8888 react-scripts start",
+    "build": "cross-env REACT_APP_MODE=production react-scripts build",
+    "prod": "cross-env REACT_APP_MODE=production react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -41,7 +42,12 @@
     ]
   },
   "devDependencies": {
-    "html5-qrcode": "^2.3.8"
-  },
-  "proxy": "http://127.0.0.1:8080"
+    "concurrently": "^5.1.0",
+    "cross-env": "^7.0.2",
+    "prettier": "2.0.5",
+    "sass": "^1.72.0",
+    "serve": "^11.3.2",
+    "typed-css-modules": "^0.6.4",
+    "typescript-plugin-css-modules": "^2.4.0"
+  }
 }
