@@ -106,6 +106,7 @@ export default function Header({orders, onDelete, fullDelete}) {
                             orders.length > 0 ? showOrders(orders) : showNothing()
                         }
                     </div>
+
                 )}
             </div>
         </header>)

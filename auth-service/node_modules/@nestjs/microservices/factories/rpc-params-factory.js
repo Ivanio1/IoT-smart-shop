@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.RpcParamsFactory = void 0;
+const rpc_paramtype_enum_1 = require("../enums/rpc-paramtype.enum");
+class RpcParamsFactory {
+    exchangeKeyForValue(type, args) {
+        if (!args) {
+            return null;
+        }
+        switch (type) {
+            case rpc_paramtype_enum_1.RpcParamtype.PAYLOAD:
+                return args[0];
+            case rpc_paramtype_enum_1.RpcParamtype.CONTEXT:
+                return args[1];
+            default:
+                return null;
+        }
+    }
+}
+exports.RpcParamsFactory = RpcParamsFactory;
