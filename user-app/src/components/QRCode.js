@@ -38,7 +38,7 @@ function QRCode({onAdd}) {
                 )
 
                 let req = new XMLHttpRequest();
-                req.open("GET", `http://localhost:8080/products?code=1456`, true);
+                req.open("GET", `${DEFAULT_URL}/products?code=${qrMessage}`, true);
                 req.onload = () => handleResponse(req.responseText);
                 req.onerror = () => alert("Сервер временно недоступен");
                 req.setRequestHeader('Content-Type', 'application/json');
@@ -48,7 +48,6 @@ function QRCode({onAdd}) {
             };
 
             const handleResponse = (text) => {
-                alert(text)
                 let response = JSON.parse(text);
                     if (response.status === 200) {
                         onAdd(response.answer)
@@ -78,6 +77,7 @@ function QRCode({onAdd}) {
             <div id="qrCodeContainer"/>
             <br/><br/>
             <div>
+                <br/>
                 <button className="start-button" onClick={() => setEnabled(!isEnabled)}>
                     {isEnabled ? " Закрыть сканирование " : "Сканировать qr-код"}
                 </button>
