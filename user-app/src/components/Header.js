@@ -8,6 +8,7 @@ window.Swal = Swal;
 
 export default function Header({orders, onDelete, fullDelete}) {
     let [cartOpen, setCartOpen] = useState(false)
+    let [payment, setPayment] = useState(false)
 
     function showOrders(orders) {
         return (<div><h2>Ваша корзина</h2>{orders.map(el => (
@@ -18,18 +19,20 @@ export default function Header({orders, onDelete, fullDelete}) {
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a className='a'>Оплата:</a>
                     <button className="button" onClick={() => {
-                        Swal.fire({
-                            title: "Оплата по ApplePay проведена!",
-                            text: "Спасибо большое за покупку, ждем вас снова!",
-                            icon: "success",
-                            timer: 2000,
-                            showCancelButton: false,
-                            showConfirmButton: false
-                        })
-
                         sendReq('applePay')
-                        fullDelete()
-                        setCartOpen(cartOpen = !cartOpen)
+                        if (payment == true) {
+                            Swal.fire({
+                                title: "Оплата по ApplePay проведена!",
+                                text: "Спасибо большое за покупку, ждем вас снова!",
+                                icon: "success",
+                                timer: 2000,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            })
+                            fullDelete()
+                            setCartOpen(cartOpen = !cartOpen)
+                        }
+
                     }
 
                     }>ApplePay
@@ -45,20 +48,21 @@ export default function Header({orders, onDelete, fullDelete}) {
                             showConfirmButton: false
                         })
 
-                        await Swal.fire({
-                            title: "Оплата по СБП проведена!",
-                            text: "Спасибо большое за покупку, ждем вас снова!",
-                            icon: "success",
-                            timer: 2000,
-                            showCancelButton: false,
-                            showConfirmButton: false
-                        })
 
                         sendReq('sbp')
-                        fullDelete()
-                        setCartOpen(cartOpen = !cartOpen)
+                        if (payment == true) {
+                            Swal.fire({
+                                title: "Оплата по Sbp проведена!",
+                                text: "Спасибо большое за покупку, ждем вас снова!",
+                                icon: "success",
+                                timer: 2000,
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            })
+                            fullDelete()
+                            setCartOpen(cartOpen = !cartOpen)
+                        }
                     }
-
                     }>СБП
                     </button>
                 </div>
@@ -84,9 +88,11 @@ export default function Header({orders, onDelete, fullDelete}) {
 
     const handleResponse = (text) => {
             let response = JSON.parse(text);
+            setPayment(true)
             if (response.status === 200) {
             } else {
-                alert("Возникла ошибка отправки! Попробуйте еще раз.");
+                setPayment(false)
+                alert(`Возникла ошибка отправки - ${response.text}! Попробуйте еще раз.`);
             }
         }
     ;
