@@ -42,7 +42,7 @@ export default function Header({orders, onDelete, fullDelete}) {
                         await Swal.fire({
                             title: "Ожидание оплаты!",
                             icon: "info",
-                            html: "<img src='/sbp.jpg' style='width:150px; height: 150px' alt=''>",
+                            html: "<img src='/sbp.png' style='width:150px; height: 150px' alt=''>",
                             timer: 7000,
                             showCancelButton: false,
                             showConfirmButton: false
@@ -92,7 +92,7 @@ export default function Header({orders, onDelete, fullDelete}) {
             if (response.status === 200) {
             } else {
                 setPayment(false)
-                alert(`Возникла ошибка отправки - ${response.text}! Попробуйте еще раз.`);
+                alert(`Возникла ошибка покупки - ${response.status}! Попробуйте еще раз.`);
             }
         }
     ;
