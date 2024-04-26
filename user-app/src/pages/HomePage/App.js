@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import QRCode from "../../components/QRCode";
+import ProductsTable from "../../components/ProductsTable";
 
 class App extends React.Component {
     constructor(props) {
@@ -20,6 +21,7 @@ class App extends React.Component {
             <div className="App">
                 <Header orders={this.state.orders} onDelete={this.deleteOrder} fullDelete = {this.deleteOrders}/>
                 <QRCode onAdd={this.addToOrder}/>
+                <ProductsTable/>
                 <Footer/>
             </div>
         );
