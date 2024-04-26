@@ -4,7 +4,8 @@ const ProductsTable = () => {
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [selectedFreshness, setSelectedFreshness] = useState(null);
-    const [isEnabled, setEnabled] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen1, setIsOpen1] = useState(false);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -28,6 +29,7 @@ const ProductsTable = () => {
         // const data = await response.json();
         const selectedProductData = products.find(product => product.id === productId);
         setSelectedProduct(selectedProductData);
+        //setIsOpen1(!isOpen1)
     };
 
     const handleSelectFreshness = async () => {
@@ -38,6 +40,7 @@ const ProductsTable = () => {
         const freshnessData = ['Свежий', 'Очень свежий', 'Сверхсвежий'];
 
         setSelectedFreshness(freshnessData);
+        setIsOpen(!isOpen)
     };
 
     return (
@@ -59,39 +62,33 @@ const ProductsTable = () => {
                 </tbody>
             </table>
 
-            {selectedProduct && (
-                <div className="product-table" onClick={() => setEnabled(!isEnabled)}>
-                        <h3>{selectedProduct.name}</h3>
-                        <p><strong>Состав:</strong> {selectedProduct.composition}</p>
-                        <button className="start-button" onClick={handleSelectFreshness}>Выбрать свежесть</button>
+            {selectedProduct &&  isOpen1 &&(
+                <div className="product-table">
+                    <h3>{selectedProduct.name}</h3>
+                    <p><strong>Состав:</strong> {selectedProduct.composition}</p>
+                    <button className="start-button" onClick={handleSelectFreshness}>Выбрать свежесть</button>
+                    <br/>
+                </div>
+            )}
 
-            <br/>
+            {selectedFreshness && isOpen && (
+                <div className="product-table">
+                    <h4>Список возможных свежестей:</h4>
+                    <ul>
+                        {selectedFreshness.map((freshness, index) => (
+                            <li key={index}>{freshness}     &emsp;
+                                <button className="start-button2">Добавить</button>
+                            </li>
+
+                        ))}
+                    </ul>
+                </div>
+            )}
+
+            <br/> <br/>
         </div>
 
-    )
-}
-
-{
-    selectedFreshness && (
-        <div className="product-table">
-            <h4>Список возможных свежестей:</h4>
-            <ul>
-                {selectedFreshness.map((freshness, index) => (
-                    <li key={index}>{freshness}     &emsp;
-                        <button className="start-button2">Добавить</button>
-                    </li>
-
-                ))}
-            </ul>
-        </div>
-    )
-}
-    <br/>
-    <br/>
-</div>
-
-)
-    ;
+    );
 };
 
 export default ProductsTable;

@@ -28,17 +28,18 @@ const LayoutDefault: React.FC = observer((props) => {
   }, [user, state, getProfile, logout, history]);
 
   return (
-    <div className={styles["layout-default"]}>
-      <div className={styles["layout-default__links"]}>
-        <Link to="/">Главная</Link>
-        {user ? (
-          <Link to="/user">Мой профиль</Link>
-        ) : (
-          <Link to="/signin">Войти</Link>
-        )}
+      <div className={styles["layout-default"]}>
+        <div className={styles["layout-default__links"]}>
+          <Link to="/">Главная</Link>
+          {user ? (
+              <Link to="/user">Мой профиль</Link>
+          ) : (
+              <Link to="/signin">Войти</Link>
+          )}
+        </div>
+        <br/><br/><br/>
+        <div className={styles["layout-default__content"]}>{props.children}</div>
       </div>
-      <div className={styles["layout-default__content"]}>{props.children}</div>
-    </div>
   );
 });
 

@@ -16,7 +16,6 @@ export default function Header({orders, onDelete, fullDelete}) {
             ))}                        <h2>Общая сумма заказа - ${orders.reduce((acc, el) => acc + el.price, 0)}</h2>
 
                 <div>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a className='a'>Оплата:</a>
                     <button className="button" onClick={() => {
                         sendReq('applePay')
@@ -100,7 +99,7 @@ export default function Header({orders, onDelete, fullDelete}) {
     return (
         <header className="head">
             <div>
-                <br/>
+                <br/><br/><br/><br/>
                 <span className="logo">Умный магазин</span>
 
                 <FaShoppingCart onClick={() => setCartOpen(cartOpen = !cartOpen)}

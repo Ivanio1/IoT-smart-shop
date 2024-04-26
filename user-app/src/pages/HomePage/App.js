@@ -20,6 +20,7 @@ class App extends React.Component {
         return (
             <div className="App">
                 <Header orders={this.state.orders} onDelete={this.deleteOrder} fullDelete = {this.deleteOrders}/>
+                <br/>
                 <QRCode onAdd={this.addToOrder}/>
                 <ProductsTable/>
                 <Footer/>
