@@ -27,9 +27,12 @@ export default function Header({orders, onDelete, fullDelete}) {
                                 timer: 2000,
                                 showCancelButton: false,
                                 showConfirmButton: false
+                            }).then(function () {
+                                fullDelete()
+                                setCartOpen(cartOpen = !cartOpen)
+                                window.location.reload();
                             })
-                            fullDelete()
-                            setCartOpen(cartOpen = !cartOpen)
+
                         }
 
                     }
@@ -58,9 +61,13 @@ export default function Header({orders, onDelete, fullDelete}) {
                                 showCancelButton: false,
                                 showConfirmButton: false
                             })
-                            fullDelete()
-                            setCartOpen(cartOpen = !cartOpen)
+                                .then(function () {
+                                    fullDelete()
+                                    setCartOpen(cartOpen = !cartOpen)
+                                    window.location.reload();
+                                })
                         }
+
                     }
                     }>СБП
                     </button>
@@ -83,6 +90,7 @@ export default function Header({orders, onDelete, fullDelete}) {
         req.onerror = () => alert("Сервер временно недоступен");
         req.setRequestHeader('Content-Type', 'application/json');
         req.send(JSON.stringify(orders));
+
     }
 
     const handleResponse = (text) => {

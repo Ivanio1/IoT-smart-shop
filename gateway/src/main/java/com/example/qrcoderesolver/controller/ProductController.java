@@ -58,10 +58,4 @@ public class ProductController {
         return new ResponseMessage(200, productList);
     }
 
-    @GetMapping("/{id}/freshness")
-    public ResponseMessage getProductFreshness(@PathVariable("id") Long id) {
-//        запрос на orderservice
-
-        return new ResponseMessage(200, "test");
-    }
 }

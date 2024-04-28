@@ -4,6 +4,7 @@ import {DEFAULT_URL} from "../index";
 const ProductsTable = ({onAdd}) => {
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
     const [isOpen1, setIsOpen1] = useState(false);
     const [sortConfig, setSortConfig] = useState({key: null, direction: 'asc'});
 
@@ -11,7 +12,6 @@ const ProductsTable = ({onAdd}) => {
         const fetchProducts = async () => {
             const response = await fetch(`${DEFAULT_URL}/products/getall`);
             const data1 = await response.json();
-
             setProducts(data1.answer);
         };
 
@@ -87,8 +87,6 @@ const ProductsTable = ({onAdd}) => {
                 </div>
 
             )}
-
-
             <br/> <br/>
         </div>
 
