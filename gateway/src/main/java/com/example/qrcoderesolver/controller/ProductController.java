@@ -20,7 +20,7 @@ public class ProductController {
 
     @GetMapping()
     public ResponseMessage getProduct(@RequestParam Integer code) {
-        Product product = productRepository.findByCode(code);
+        Product product = productRepository.findProductById(code);
         if ((product != null)) {
             System.out.println("OK");
             return new ResponseMessage(200, product);
@@ -39,16 +39,16 @@ public class ProductController {
 
         List<Product> productList = new ArrayList<>();
 
-        productList.add(new Product(1, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
-        productList.add(new Product(2, "Молоко",8888, "Молоко",80,"Не свежий"));
-        productList.add(new Product(3, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
-        productList.add(new Product(4, "Молоко",8888, "Молоко",80,"Не свежий"));
-        productList.add(new Product(5, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
-        productList.add(new Product(6, "Молоко",8888, "Молоко",80,"Не свежий"));
-        productList.add(new Product(7, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
-        productList.add(new Product(8, "Молоко",8888, "Молоко",80,"Не свежий"));
-        productList.add(new Product(9, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
-        productList.add(new Product(10, "Молоко",8888, "Молоко",80,"Не свежий"));
+//        productList.add(new Product(1, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
+//        productList.add(new Product(2, "Молоко",8888, "Молоко",80,"Не свежий"));
+//        productList.add(new Product(3, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
+//        productList.add(new Product(4, "Молоко",8888, "Молоко",80,"Не свежий"));
+//        productList.add(new Product(5, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
+//        productList.add(new Product(6, "Молоко",8888, "Молоко",80,"Не свежий"));
+//        productList.add(new Product(7, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
+//        productList.add(new Product(8, "Молоко",8888, "Молоко",80,"Не свежий"));
+//        productList.add(new Product(9, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
+//        productList.add(new Product(10, "Молоко",8888, "Молоко",80,"Не свежий"));
 
 
 //        if ((products != null)) {
