@@ -13,7 +13,7 @@ export default function Header({orders, onDelete, fullDelete}) {
     function showOrders(orders) {
         return (<div><h2>Ваша корзина</h2>{orders.map(el => (
                 <Order key={el.id} item={el} onDelete={onDelete}/>
-            ))}                        <h2>Общая сумма заказа - ${orders.reduce((acc, el) => acc + el.price, 0)}</h2>
+            ))}                        <h2>Общая сумма заказа - {orders.reduce((acc, el) => acc + el.price, 0)}₽</h2>
 
                 <div>
                     <a className='a'>Оплата:</a>

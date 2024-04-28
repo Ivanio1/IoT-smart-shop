@@ -48,6 +48,8 @@ class App extends React.Component {
             alert("Такой товар уже есть в корзине.")
         }
     }
+
+
 }
 
 export default App;

@@ -19,4 +19,5 @@ public class Product {
     private Integer code;
     private String ingridients;
     private Integer price;
+    private String freshness;
 }

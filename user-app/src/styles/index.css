@@ -282,3 +282,14 @@ tr :first-child {
 tr :last-child {
     width: 80%;
 }
+
+.product-table1 {
+    max-height: 300px; /* Высота таблицы */
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+}
+
+.products {
+    width: 100%; /* Ширина таблицы занимает всю доступную ширину */
+    border-collapse: collapse; /* Объединяем границы ячеек */
+}
+
