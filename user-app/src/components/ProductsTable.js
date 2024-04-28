@@ -29,7 +29,11 @@ const ProductsTable = () => {
         // const data = await response.json();
         const selectedProductData = products.find(product => product.id === productId);
         setSelectedProduct(selectedProductData);
-        //setIsOpen1(!isOpen1)
+        if (isOpen1) {
+            setIsOpen(false)
+        }
+        setIsOpen1(!isOpen1)
+
     };
 
     const handleSelectFreshness = async () => {
@@ -62,7 +66,7 @@ const ProductsTable = () => {
                 </tbody>
             </table>
 
-            {selectedProduct &&  isOpen1 &&(
+            {selectedProduct && isOpen1 && (
                 <div className="product-table">
                     <h3>{selectedProduct.name}</h3>
                     <p><strong>Состав:</strong> {selectedProduct.composition}</p>
