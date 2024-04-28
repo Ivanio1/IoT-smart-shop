@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class RabbitService {
 
     private final RabbitTemplate rabbitTemplate;
-    private final Receiver receiver;
 
     public void sendToTerminal(List<Integer> products) {
         rabbitTemplate.convertAndSend(RabbitConfig.TOPIC_EXCHANGE_NAME, "terminal.order", products);
