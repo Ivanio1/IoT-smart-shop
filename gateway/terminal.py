@@ -1,43 +1,34 @@
-version: '3.4'
-services:
-  db:
-    image: postgres
-    env_file: .env
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
-    ports:
-      - '5435:5432'
-  maria:
-    image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: test
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-    volumes:
-      - ./data:/var/lib/mysql
-    ports:
-      - "3306:3306"
-      #mariadb --host localhost --port 3306 --user root --password test
-  postgres:
-    image: postgres:13.3
-    environment:
-      POSTGRES_DB: "product-service-db"
-      POSTGRES_USER: "product-service"
-      POSTGRES_PASSWORD: "product-service"
-    volumes:
-      - ./pgdata2:/var/lib/postgresql/data
-    ports:
-      - "5433:5432"
-  rabbitmq:
-    image: rabbitmq:latest
-    hostname: rabbitmq
-    restart: always
-    environment:
-      - RABBITMQ_DEFAULT_USER=rmuser
-      - RABBITMQ_DEFAULT_PASS=rmpassword
-    volumes:
-      - ./rabbitmq:/var/lib/rabbitmq
-    ports:
-      - 15672:15672
-      - 5672:5672
+import pika
+import time
+
+def consume_message(ch, method, properties, body):
+    print("Received:", body.decode())
+
+def main():
+    credentials = pika.PlainCredentials('rmuser', 'rmpassword')
+    parameters = pika.ConnectionParameters('localhost', 5672, '/', credentials)
+
+    connection = pika.BlockingConnection(parameters)
+    channel = connection.channel()
+
+    channel.exchange_declare(exchange='order', exchange_type='topic')
+    result = channel.queue_declare(queue='', exclusive=True)
+    queue_name = result.method.queue
+
+    channel.queue_bind(exchange='order', queue=queue_name, routing_key='#')
+
+    print(' [*] Waiting for messages. To exit press CTRL+C')
+
+    channel.basic_consume(queue=queue_name, on_message_callback=consume_message, auto_ack=True)
+
+    try:
+        channel.start_consuming()
+    except KeyboardInterrupt:
+        channel.stop_consuming()
+
+    connection.close()
+
+if __name__ == '__main__':
+    while True:
+        main()
+        time.sleep(60)  # Wait for a minute before restarting the loop
