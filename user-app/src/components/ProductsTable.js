@@ -4,8 +4,6 @@ import {DEFAULT_URL} from "../index";
 const ProductsTable = ({onAdd}) => {
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
-    const [selectedFreshness, setSelectedFreshness] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
     const [isOpen1, setIsOpen1] = useState(false);
     const [sortConfig, setSortConfig] = useState({key: null, direction: 'asc'});
 
@@ -13,11 +11,6 @@ const ProductsTable = ({onAdd}) => {
         const fetchProducts = async () => {
             const response = await fetch(`${DEFAULT_URL}/products/getall`);
             const data1 = await response.json();
-            //Симуляция данных
-            // const data = [
-            //     {id: 1, name: 'Хлеб бородинский', ingridients: 'Мука, вода, соль, дрожжи'},
-            //     {id: 2, name: 'Молоко', ingridients: 'Молоко'},
-            // ];
 
             setProducts(data1.answer);
         };
@@ -34,7 +27,6 @@ const ProductsTable = ({onAdd}) => {
         setIsOpen1(!isOpen1)
 
     };
-
 
     const addToCart = async (freshness) => {
         const productWithFreshness = {...selectedProduct, freshness}
@@ -96,18 +88,6 @@ const ProductsTable = ({onAdd}) => {
 
             )}
 
-            {/*{selectedFreshness && isOpen && (*/}
-            {/*    <div className="product-table">*/}
-            {/*    <h4>Список возможных свежестей:</h4>*/}
-            {/*        <ul>*/}
-            {/*            {selectedFreshness.map((freshness, index) => (*/}
-            {/*                <li key={index}>{freshness}     &emsp;*/}
-            {/*                    <button className="start-button2" onClick={() => addToCart(freshness)}>Добавить</button>*/}
-            {/*                </li>*/}
-            {/*            ))}*/}
-            {/*        </ul>*/}
-            {/*    </div>*/}
-            {/*)}*/}
 
             <br/> <br/>
         </div>
