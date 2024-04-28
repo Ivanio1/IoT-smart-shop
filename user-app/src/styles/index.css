@@ -6,6 +6,10 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+.App{
+    display: flex;
+    flex-direction: row;;
+}
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -13,35 +17,36 @@ code {
 }
 
 .head {
-    left: 0;
-    right: 0;
-    top: 0;
     font-size: 48px;
 }
 
 footer {
     float: right;
+}
 
+.logo{
+    position: absolute;
 }
 
 header ul.nav {
-    float: right;
+
     list-style: none;
 }
 
 header ul.nav li {
-    float: right;
+
     list-style: none;
 }
 
 header ul.nav {
-    float: right;
     list-style: none;
 }
 
 header .shop-cart-button {
-    position: relative;
-    margin-right: 25px;
+    position: absolute;
+    margin-right: 5px;
+    top: 50px;
+    right:15%;
     float: right;
     cursor: pointer;
     transition: color, transform 500ms ease;
@@ -72,7 +77,6 @@ header .shop-cart .item {
     width: 100%;
     font-size: 30px;
     color: #F8B195;
-
 }
 
 header .shop-cart h2 {
@@ -183,6 +187,7 @@ video {
 }
 
 .start-button2 {
+    height: 30px;
     padding: 5px;
     background-color: #F8B195;
     border: 0;
@@ -213,8 +218,8 @@ video {
     text-align: left;
 }
 
-
 .product-table {
+    position: relative;
     font-size: 36px;
     top: 0;
     left: 0;
@@ -234,7 +239,6 @@ video {
     justify-content: center;
     align-items: center;
     text-align: center;
-
 }
 
 .product-table td {
@@ -261,7 +265,6 @@ video {
     display: inline-flex;
     flex-direction: column;
 }
-
 
 .product-table td:hover, td:focus {
     background-color: wheat;

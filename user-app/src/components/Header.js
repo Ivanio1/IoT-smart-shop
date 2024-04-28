@@ -99,7 +99,7 @@ export default function Header({orders, onDelete, fullDelete}) {
     return (
         <header className="head">
             <div>
-                <br/><br/><br/><br/>
+
                 <span className="logo">Умный магазин</span>
 
                 <FaShoppingCart onClick={() => setCartOpen(cartOpen = !cartOpen)}
