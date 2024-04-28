@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {DEFAULT_URL} from "../index";
 
-const ProductsTable = () => {
+const ProductsTable = ({onAdd}) => {
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [selectedFreshness, setSelectedFreshness] = useState(null);
@@ -10,24 +10,21 @@ const ProductsTable = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            //  const response = await fetch('${DEFAULT_URL}/products/getall');
-            // const data = await response.json();
+            const response = await fetch(`${DEFAULT_URL}/products/getall`);
+            const data1 = await response.json();
+            //Симуляция данных
+            // const data = [
+            //     {id: 1, name: 'Хлеб бородинский', ingridients: 'Мука, вода, соль, дрожжи'},
+            //     {id: 2, name: 'Молоко', ingridients: 'Молоко'},
+            // ];
 
-            // Симуляция данных
-            const data = [
-                {id: 1, name: 'Хлеб бородинский', composition: 'Мука, вода, соль, дрожжи'},
-                {id: 2, name: 'Молоко', composition: 'Молоко'},
-            ];
-
-            setProducts(data);
+            setProducts(data1.answer);
         };
 
         fetchProducts();
     }, []);
 
     const handleProductClick = (productId) => {
-        // const response = await fetch(`${DEFAULT_URL}/products/${productId}`);
-        // const data = await response.json();
         const selectedProductData = products.find(product => product.id === productId);
         setSelectedProduct(selectedProductData);
         if (isOpen1) {
@@ -36,6 +33,7 @@ const ProductsTable = () => {
         setIsOpen1(!isOpen1)
 
     };
+
 
     const handleSelectFreshness = async () => {
         // const response = await fetch(`${DEFAULT_URL}/products/${selectedProduct.id}/freshness`);
@@ -47,6 +45,10 @@ const ProductsTable = () => {
         setSelectedFreshness(freshnessData);
         setIsOpen(!isOpen)
     };
+    function addToCart(){
+
+    }
+
 
     return (
         <div className="product-table">
@@ -70,10 +72,11 @@ const ProductsTable = () => {
             {selectedProduct && isOpen1 && (
                 <div className="product-table">
                     <h3>{selectedProduct.name}</h3>
-                    <p><strong>Состав:</strong> {selectedProduct.composition}</p>
+                    <p><strong>Состав:</strong> {selectedProduct.ingridients}</p>
                     <button className="start-button" onClick={handleSelectFreshness}>Выбрать свежесть</button>
                     <br/>
                 </div>
+
             )}
 
             {selectedFreshness && isOpen && (
@@ -82,7 +85,7 @@ const ProductsTable = () => {
                     <ul>
                         {selectedFreshness.map((freshness, index) => (
                             <li key={index}>{freshness}     &emsp;
-                                <button className="start-button2">Добавить</button>
+
                             </li>
 
                         ))}

@@ -6,6 +6,9 @@ import com.example.qrcoderesolver.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/products")
@@ -25,11 +28,18 @@ public class ProductController {
     @GetMapping("/getall")
     public ResponseMessage getAllProducts() {
 //        запрос на orderservice
+
+        List<Product> productList = new ArrayList<>();
+
+        productList.add(new Product(1, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50));
+        productList.add(new Product(2, "Молоко",8888, "Молоко",80));
+
+
 //        if ((products != null)) {
 //            System.out.println("OK");
 //            return new ResponseMessage(200, products);
 //        } else return new ResponseMessage(404, "Not found!");
-        return new ResponseMessage(200, "test");
+        return new ResponseMessage(200, productList);
     }
 
     @GetMapping("/{id}/freshness")
