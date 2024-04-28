@@ -21,4 +21,21 @@ public class ProductController {
             return new ResponseMessage(200, product);
         } else return new ResponseMessage(404, "Not found!");
     }
+
+    @GetMapping("/getall")
+    public ResponseMessage getAllProducts() {
+//        запрос на orderservice
+//        if ((products != null)) {
+//            System.out.println("OK");
+//            return new ResponseMessage(200, products);
+//        } else return new ResponseMessage(404, "Not found!");
+        return new ResponseMessage(200, "test");
+    }
+
+    @GetMapping("/{id}/freshness")
+    public ResponseMessage getProductFreshness(@PathVariable("id") Long id) {
+//        запрос на orderservice
+
+        return new ResponseMessage(200, "test");
+    }
 }

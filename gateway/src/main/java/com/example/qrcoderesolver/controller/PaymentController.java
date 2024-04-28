@@ -29,6 +29,9 @@ public class PaymentController {
                 int bytesRead = socket.getInputStream().read(buffer);
                 String response = new String(buffer, 0, bytesRead);
                 if (response.equals("OK")) {
+
+                    //запрос в кафку
+
                     return new ResponseMessage(200, "Payment successful!");
                 } else return new ResponseMessage(400, "Payment error!");
 

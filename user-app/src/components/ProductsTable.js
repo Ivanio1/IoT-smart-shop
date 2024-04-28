@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {DEFAULT_URL} from "../index";
 
 const ProductsTable = () => {
     const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ const ProductsTable = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            //  const response = await fetch('https://api.example.com/products');
+            //  const response = await fetch('${DEFAULT_URL}/products/getall');
             // const data = await response.json();
 
             // Симуляция данных
@@ -25,7 +26,7 @@ const ProductsTable = () => {
     }, []);
 
     const handleProductClick = (productId) => {
-        // const response = await fetch(`https://api.example.com/products/${productId}`);
+        // const response = await fetch(`${DEFAULT_URL}/products/${productId}`);
         // const data = await response.json();
         const selectedProductData = products.find(product => product.id === productId);
         setSelectedProduct(selectedProductData);
@@ -37,7 +38,7 @@ const ProductsTable = () => {
     };
 
     const handleSelectFreshness = async () => {
-        // const response = await fetch(`https://api.example.com/products/${selectedProduct.id}/freshness`);
+        // const response = await fetch(`${DEFAULT_URL}/products/${selectedProduct.id}/freshness`);
         // const data = await response.json();
 
         // Симуляция данных
