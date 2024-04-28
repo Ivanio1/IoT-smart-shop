@@ -3,6 +3,7 @@ package com.example.qrcoderesolver.controller;
 import com.example.qrcoderesolver.model.Product;
 import com.example.qrcoderesolver.model.ResponseMessage;
 import com.example.qrcoderesolver.repository.ProductRepository;
+import com.example.qrcoderesolver.service.RabbitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductRepository productRepository;
+    private final RabbitService rabbitService;
 
     @GetMapping()
     public ResponseMessage getProduct(@RequestParam Integer code) {
@@ -23,6 +25,12 @@ public class ProductController {
             System.out.println("OK");
             return new ResponseMessage(200, product);
         } else return new ResponseMessage(404, "Not found!");
+    }
+
+
+    @GetMapping("/test")
+    public void push() {
+        rabbitService.sendToTerminal(List.of(1, 2, 3, 4, 5));
     }
 
     @GetMapping("/getall")
