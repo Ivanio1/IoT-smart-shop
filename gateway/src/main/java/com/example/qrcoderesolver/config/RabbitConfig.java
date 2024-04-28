@@ -1,5 +1,7 @@
 package com.example.qrcoderesolver.config;
 
+import javax.sound.midi.Receiver;
+
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -31,13 +33,13 @@ public class RabbitConfig {
         return BindingBuilder.bind(queue).to(exchange).with("terminal.order");
     }
 
+
+
     @Bean
-    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
-                                             MessageListenerAdapter listenerAdapter) {
+    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(QUEUE_NAME);
-        container.setMessageListener(listenerAdapter);
         return container;
     }
 
