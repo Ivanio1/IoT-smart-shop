@@ -52,6 +52,16 @@ const ProductsTable = ({onAdd}) => {
         setProducts(sortedProducts);
     };
 
+    const getFreshness = (expirationPoints) => {
+        if (expirationPoints >= 70) {
+            return "Свежая"
+        } else if (expirationPoints >= 40) {
+            return "Средняя"
+        } else {
+            return "Срок годности подходит к концу"
+        }
+
+    }
 
     return (
         <div className="product-table">
@@ -61,16 +71,17 @@ const ProductsTable = ({onAdd}) => {
                     <thead>
                     <tr>
                         <th onClick={() => requestSort('id')}>ID</th>
-                        <th onClick={() => requestSort('name')}>Название товара</th>
-                        <th onClick={() => requestSort('freshness')}>Свежесть товара</th>
+                        <th onClick={() => requestSort('title')}>Название товара</th>
+                        <th onClick={() => requestSort('currentPrice')}>Текущая цена</th>
                     </tr>
                     </thead>
                     <tbody>
                     {products.map(product => (
                         <tr key={product.id} onClick={() => handleProductClick(product.id)}>
                             <td>{product.id}</td>
-                            <td>{product.name}</td>
-                            <td>{product.freshness}</td>
+                            <td>{product.title}</td>
+                            <td>{product.currentPrice}</td>
+
                         </tr>
                     ))}
                     </tbody>
@@ -80,12 +91,12 @@ const ProductsTable = ({onAdd}) => {
             {selectedProduct && isOpen1 && (
                 <div className="product-table">
                     <h3>{selectedProduct.name}</h3>
-                    <p><strong>Состав:</strong> {selectedProduct.ingridients}</p>
-                    <p><strong>Цена:</strong> {selectedProduct.price}₽</p>
+                    <p><strong>Начальная цена:</strong> {selectedProduct.initialPrice} ₽</p>
+                    <p><strong>Тип:</strong> {selectedProduct.productType}</p>
+                    <p><strong>Свежесть:</strong> {getFreshness(selectedProduct.expirationPoints)}</p>
                     <button className="start-button2" onClick={() => addToCart()}>Добавить в корзину</button>
                     <br/>
                 </div>
-
             )}
             <br/> <br/>
         </div>

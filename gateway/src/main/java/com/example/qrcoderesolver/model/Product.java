@@ -14,10 +14,12 @@ import lombok.*;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String name;
-    private Integer code;
-    private String ingridients;
-    private Integer price;
-    private String freshness;
+    private Long id;
+    private Integer expirationPoints;
+    private Integer expirationPointsDecreaseSpeed;
+    private Double currentPrice;
+    private String title;
+    private ProductType productType;
+    private Double initialPrice;
+
 }
