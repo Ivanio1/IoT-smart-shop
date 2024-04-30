@@ -3,11 +3,19 @@ package com.example.qrcoderesolver.controller;
 import com.example.qrcoderesolver.model.Product;
 import com.example.qrcoderesolver.model.ResponseMessage;
 import com.example.qrcoderesolver.repository.ProductRepository;
-import com.example.qrcoderesolver.service.RabbitService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -16,11 +24,11 @@ import java.util.List;
 public class ProductController {
 
     private final ProductRepository productRepository;
-    private final RabbitService rabbitService;
+    // private final RabbitService rabbitService;
 
     @GetMapping()
-    public ResponseMessage getProduct(@RequestParam Integer code) {
-        Product product = productRepository.findProductById(code);
+    public ResponseMessage getProduct(@RequestParam Integer id) {
+        Product product = productRepository.findProductById(id);
         if ((product != null)) {
             System.out.println("OK");
             return new ResponseMessage(200, product);
@@ -28,34 +36,34 @@ public class ProductController {
     }
 
 
-    @GetMapping("/test")
-    public void push() {
-        rabbitService.sendToTerminal("lol");
-    }
+//    @GetMapping("/test")
+//    public void push() {
+//        rabbitService.sendToTerminal(List.of(1, 2, 3, 4, 5));
+//    }
 
     @GetMapping("/getall")
     public ResponseMessage getAllProducts() {
-//        запрос на orderservice
 
         List<Product> productList = new ArrayList<>();
 
-//        productList.add(new Product(1, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
-//        productList.add(new Product(2, "Молоко",8888, "Молоко",80,"Не свежий"));
-//        productList.add(new Product(3, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
-//        productList.add(new Product(4, "Молоко",8888, "Молоко",80,"Не свежий"));
-//        productList.add(new Product(5, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
-//        productList.add(new Product(6, "Молоко",8888, "Молоко",80,"Не свежий"));
-//        productList.add(new Product(7, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
-//        productList.add(new Product(8, "Молоко",8888, "Молоко",80,"Не свежий"));
-//        productList.add(new Product(9, "Хлеб бородинский", 9999,"Мука, вода, соль, дрожжи",50,"Свежий"));
-//        productList.add(new Product(10, "Молоко",8888, "Молоко",80,"Не свежий"));
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .header("Authorization","Bearr eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0IiwiaWF0IjoxNzExODA0NTA3LCJleHAiOjE3NDMzNjIxMDcsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJ1aWQiOiIxIn0.ZDiN7xEbql2tsSz_3WbKOSSr7Llt1XmXQGjgZro5jLk")
+                .uri(URI.create("http://213.159.215.149:8080/order/Order/get-products"))
+                .build();
 
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            String responseBody = response.body();
+            ObjectMapper objectMapper = new ObjectMapper();
+            Product[] products = objectMapper.readValue(responseBody, Product[].class);
+            productList.addAll(Arrays.asList(products));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-//        if ((products != null)) {
-//            System.out.println("OK");
-//            return new ResponseMessage(200, products);
-//        } else return new ResponseMessage(404, "Not found!");
         return new ResponseMessage(200, productList);
     }
 
 }
+
