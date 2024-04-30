@@ -8,7 +8,12 @@ import java.net.http.HttpResponse;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Service
 public class OrderService {
@@ -43,6 +48,7 @@ public class OrderService {
 
     public int addItemRequest(Long productId) throws IOException, InterruptedException {
         String body = "{\"itemId\": " + productId + "}";
+        System.out.println(body);
         HttpRequest request = HttpRequest.newBuilder()
                 .header("Authorization", "Bearr eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9" +
                         ".eyJpc3MiOiJ0ZXN0IiwiaWF0IjoxNzExODA0NTA3LCJleHAiOjE3NDMzNjIxMDcsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJ1aWQiOiIxIn0.ZDiN7xEbql2tsSz_3WbKOSSr7Llt1XmXQGjgZro5jLk")
@@ -53,5 +59,9 @@ public class OrderService {
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return response.statusCode();
+    }
+    @AllArgsConstructor
+    public static class AddItemRequest {
+        Long itemId;
     }
 }
