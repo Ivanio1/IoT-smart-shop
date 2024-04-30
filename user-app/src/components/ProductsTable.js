@@ -15,7 +15,7 @@ const ProductsTable = ({onAdd}) => {
         const fetchSamples = async () => {
             const response = await fetch(`${DEFAULT_URL}/samples/get-all`);
             const data1 = await response.json();
-            setSamples(data1.answer);
+            setSamples(data1);
         };
 
         fetchSamples();
@@ -26,7 +26,7 @@ const ProductsTable = ({onAdd}) => {
         setSelectedSample(selectedSampleData);
         const response = await fetch(`${DEFAULT_URL}/products/get-by-title?title=${selectedSampleData.title}`);
         const data = await response.json();
-        setProducts(data.answer);
+        setProducts(data);
 
         if (isOpen1) {
             setIsOpen(false)
