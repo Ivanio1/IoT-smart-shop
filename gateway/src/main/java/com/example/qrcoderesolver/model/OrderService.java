@@ -35,7 +35,7 @@ public class OrderService {
         HttpRequest request = HttpRequest.newBuilder()
                 .header("Authorization", "Bearr eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9" +
                         ".eyJpc3MiOiJ0ZXN0IiwiaWF0IjoxNzExODA0NTA3LCJleHAiOjE3NDMzNjIxMDcsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJ1aWQiOiIxIn0.ZDiN7xEbql2tsSz_3WbKOSSr7Llt1XmXQGjgZro5jLk")
-                .uri(URI.create("http://213.159.215.149:8080/order/Order/get-products-by-title/?=" + title))
+                .uri(URI.create("http://213.159.215.149:8080/order/Order/get-products-by-title/?title=" + title))
                 .build();
 
         return getProducts(request);
