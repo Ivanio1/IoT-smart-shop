@@ -13,7 +13,7 @@ const ProductsTable = ({onAdd}) => {
 
     useEffect(() => {
         const fetchSamples = async () => {
-            const response = await fetch(`${DEFAULT_URL}/products/getall`);
+            const response = await fetch(`${DEFAULT_URL}/samples/get-all`);
             const data1 = await response.json();
             setSamples(data1.answer);
         };
