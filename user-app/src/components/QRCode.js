@@ -41,6 +41,7 @@ function QRCode({onAdd}) {
                 if (text.status !== 404) {
                     let response = JSON.parse(text.responseText);
                     onAdd(response)
+
                     Swal.fire({
                         title: "Товар успешно добавлен в корзину!",
                         text: "Продолжайте свои покупки",

@@ -44,7 +44,7 @@ export class AuthService {
       grant: user.grant,
       name: user.name,
       avatar_url: user.avatar_url,
-      token: await this.jwtService.sign({ id: user.id }),
+      token: await this.jwtService.sign({ uid: user.id }),
     };
   }
 
