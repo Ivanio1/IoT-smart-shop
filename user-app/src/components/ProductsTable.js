@@ -24,7 +24,7 @@ const ProductsTable = ({onAdd}) => {
     const handleProductClick = async (sampleId) => {
         const selectedSampleData = samples.find(sample => sample.id === sampleId);
         setSelectedSample(selectedSampleData);
-        const response = await fetch(`${DEFAULT_URL}/products/get-by-title?title=${selectedSampleData.title}`);
+        const response = await fetch(`${DEFAULT_URL}/product/get-by-title?title=${selectedSampleData.title}`);
         const data = await response.json();
         setProducts(data);
 
@@ -94,7 +94,7 @@ const ProductsTable = ({onAdd}) => {
             </div>
 
             {selectedSample && isOpen1 && (
-                <div className="product-table">
+                <div className="product-table1">
                     {/*<p><strong>Тип:</strong> {selectedSample.productType}</p>*/}
                     {/*<p><strong>Свежесть:</strong> {getFreshness(selectedSample.expirationPoints)}</p>*/}
                     {/*<button className="start-button2" onClick={() => addToCart()}>Добавить в корзину</button>*/}
@@ -102,19 +102,34 @@ const ProductsTable = ({onAdd}) => {
                     {products.length > 0 ? (
                         products.map(product => (
                             <div key={product.id}>
-                                <h3>{product.name}</h3>
+
                                 <p><strong>Текущая цена:</strong> {product.currentPrice} ₽</p>
                                 {product.expirationPoints >= 70 ? (
-                                    <button className="start-button2" onClick={() => addToCart(product)}>Свежий</button>
+                                    <div>
+                                        <p>Свежий товар</p>
+                                        <button className="start-button"
+                                                onClick={() => addToCart(product)}>Добавить
+                                        </button>
+                                    </div>
 
                                 ) : product.expirationPoints >= 40 ? (
-                                    <button className="start-button2"
-                                            onClick={() => addToCart(product)}>Средний</button>
+                                    <div>
+                                        <p>Средняя свежесть</p>
+                                        <button className="start-button"
+                                                onClick={() => addToCart(product)}>Добавить
+                                        </button>
+                                    </div>
                                 ) : (
-                                    <button className="start-button2" onClick={() => addToCart(product)}>Не
-                                        свежий</button>
+                                    <div>
+                                        <p>Срок подходит к концу</p>
+                                        <button className="start-button"
+                                                onClick={() => addToCart(product)}>Добавить
+                                        </button>
+                                    </div>
                                 )}
+                                <br/>
                             </div>
+
                         ))
                     ) : (
                         <p>Продуктов такого типа нет</p>

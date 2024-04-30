@@ -287,10 +287,16 @@ tr :last-child {
 .product-table1 {
     max-height: 300px; /* Высота таблицы */
     overflow-y: auto; /* Включаем вертикальную прокрутку */
+    border: solid black 1px;
+    border-radius: 5px;
 }
 
 .products {
     width: 100%; /* Ширина таблицы занимает всю доступную ширину */
     border-collapse: collapse; /* Объединяем границы ячеек */
+}
+
+.centered{
+    align-content: center;
 }
 

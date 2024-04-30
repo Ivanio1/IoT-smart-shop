@@ -11,51 +11,50 @@ function QRCode({onAdd}) {
     const [qrMessage, setQrMessage] = useState("");
 
     useEffect(() => {
-        const config = {fps: 10, qrbox: {width: 200, height: 200}};
+            const config = {fps: 10, qrbox: {width: 200, height: 200}};
 
-        const html5QrCode = new Html5Qrcode("qrCodeContainer");
+            const html5QrCode = new Html5Qrcode("qrCodeContainer");
 
-        const qrScanerStop = () => {
-            if (html5QrCode && html5QrCode.isScanning) {
+            const qrScanerStop = () => {
+                if (html5QrCode && html5QrCode.isScanning) {
                     html5QrCode
                         .stop()
                         .then((ignore) => console.log("Scaner stop"))
                         .catch((err) => console.log("Scaner error"));
-            }
-        };
+                }
+            };
 
             const qrCodeSuccess = (decodedText) => {
                 setQrMessage(decodedText);
-                Swal.fire({
-                    title: "Товар успешно добавлен в корзину!",
-                    text: "Продолжайте свои покупки",
-                    icon: "success",
-                    timer: 2000,
-                    showCancelButton: false,
-                    showConfirmButton: false
-                }).then(
-                    setEnabled(true)
-                )
-
                 let req = new XMLHttpRequest();
-                req.open("GET", `${DEFAULT_URL}/samples?title=${qrMessage}`, true);
-                req.onload = () => handleResponse(req.responseText);
+                req.open("GET", `${DEFAULT_URL}/samples/title/consume?title=${qrMessage}`, true);
+                req.onload = () => handleResponse(req);
                 req.onerror = () => alert("Сервер временно недоступен");
                 req.setRequestHeader('Content-Type', 'application/json');
                 req.send();
-
                 setEnabled(false)
+
+
             };
 
             const handleResponse = (text) => {
-                let response = JSON.parse(text);
-                    if (response.status === 200) {
-                        onAdd(response.answer)
-                    } else {
-                        alert("Возникла ошибка сканирования! Попробуйте еще раз.");
-                    }
+                if (text.status !== 404) {
+                    let response = JSON.parse(text.responseText);
+                    onAdd(response)
+                    Swal.fire({
+                        title: "Товар успешно добавлен в корзину!",
+                        text: "Продолжайте свои покупки",
+                        icon: "success",
+                        timer: 2000,
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    }).then(
+                        setEnabled(true)
+                    )
+                } else {
+                    alert("Возникла ошибка сканирования! Попробуйте еще раз.");
                 }
-            ;
+            };
 
             if (isEnabled) {
                 html5QrCode.start({facingMode: "environment"}, config, qrCodeSuccess);
