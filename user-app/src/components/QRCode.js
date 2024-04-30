@@ -38,7 +38,7 @@ function QRCode({onAdd}) {
                 )
 
                 let req = new XMLHttpRequest();
-                req.open("GET", `${DEFAULT_URL}/products?code=${qrMessage}`, true);
+                req.open("GET", `${DEFAULT_URL}/samples?title=${qrMessage}`, true);
                 req.onload = () => handleResponse(req.responseText);
                 req.onerror = () => alert("Сервер временно недоступен");
                 req.setRequestHeader('Content-Type', 'application/json');
