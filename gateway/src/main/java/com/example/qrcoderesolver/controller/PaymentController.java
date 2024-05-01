@@ -39,7 +39,6 @@ public class PaymentController {
                 byte[] buffer = new byte[1024];
                 int bytesRead = socket.getInputStream().read(buffer);
                 String response = new String(buffer, 0, bytesRead);
-                System.out.println(response);
                 if (response.equals("OK")) {
                     HttpRequest request = HttpRequest.newBuilder()
                             .header("Authorization", "Bearer "+req.getHeader("Authorization"))
