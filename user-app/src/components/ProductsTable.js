@@ -13,7 +13,16 @@ const ProductsTable = ({onAdd}) => {
 
     useEffect(() => {
         const fetchSamples = async () => {
-            const response = await fetch(`${DEFAULT_URL}/samples/get-all`);
+            const token = sessionStorage.getItem("token");
+            const fetchOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                }
+            };
+
+            const response = await fetch(`${DEFAULT_URL}/samples/get-all`,fetchOptions);
             const data1 = await response.json();
             setSamples(data1);
         };
@@ -24,7 +33,15 @@ const ProductsTable = ({onAdd}) => {
     const handleProductClick = async (sampleId) => {
         const selectedSampleData = samples.find(sample => sample.id === sampleId);
         setSelectedSample(selectedSampleData);
-        const response = await fetch(`${DEFAULT_URL}/product/get-by-title?title=${selectedSampleData.title}`);
+        const token = sessionStorage.getItem("token");
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            }
+        };
+        const response = await fetch(`${DEFAULT_URL}/product/get-by-title?title=${selectedSampleData.title}`,fetchOptions);
         const data = await response.json();
         setProducts(data);
 

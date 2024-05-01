@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.qrcoderesolver.model.OrderService;
 import com.example.qrcoderesolver.model.Product;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +25,12 @@ public class ProductController {
 
 
     @GetMapping("/get-by-title")
-    public ResponseEntity<List<Product>> getByTitle(@RequestParam String title) throws IOException, InterruptedException {
-        return ResponseEntity.ok(service.getProductsByTitle(title));
+    public ResponseEntity<List<Product>> getByTitle(@RequestParam String title, HttpServletRequest request) throws IOException, InterruptedException {
+        return ResponseEntity.ok(service.getProductsByTitle(title,request.getHeader("Authorization")));
     }
 
     @PostMapping("/add-item-request")
-    public ResponseEntity<Void> addItemRequest(@RequestParam Long productId) throws IOException, InterruptedException {
-        return ResponseEntity.status(service.addItemRequest(productId)).build();
+    public ResponseEntity<Void> addItemRequest(@RequestParam Long productId,HttpServletRequest request) throws IOException, InterruptedException {
+        return ResponseEntity.status(service.addItemRequest(productId,request.getHeader("Authorization"))).build();
     }
 }

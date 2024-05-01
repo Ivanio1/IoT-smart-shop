@@ -13,10 +13,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
-    public List<Product> getSamples() throws IOException, InterruptedException {
+    public List<Product> getSamples(String token) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .header("Authorization", "Bearr eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9" +
-                        ".eyJpc3MiOiJ0ZXN0IiwiaWF0IjoxNzExODA0NTA3LCJleHAiOjE3NDMzNjIxMDcsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJ1aWQiOiIxIn0.ZDiN7xEbql2tsSz_3WbKOSSr7Llt1XmXQGjgZro5jLk")
+                .header("Authorization", "Bearer "+token)
                 .uri(URI.create("http://213.159.215.149:8080/order/Order/get-products"))
                 .build();
 
@@ -32,22 +31,19 @@ public class OrderService {
         return List.of(products);
     }
 
-    public List<Product> getProductsByTitle(String title) throws IOException, InterruptedException {
+    public List<Product> getProductsByTitle(String title, String token) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .header("Authorization", "Bearr eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9" +
-                        ".eyJpc3MiOiJ0ZXN0IiwiaWF0IjoxNzExODA0NTA3LCJleHAiOjE3NDMzNjIxMDcsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJ1aWQiOiIxIn0.ZDiN7xEbql2tsSz_3WbKOSSr7Llt1XmXQGjgZro5jLk")
+                .header("Authorization", "Bearer "+token)
                 .uri(URI.create("http://213.159.215.149:8080/order/Order/get-products-by-title?title=" + title))
                 .build();
 
         return getProducts(request);
     }
 
-    public int addItemRequest(Long productId) throws IOException, InterruptedException {
+    public int addItemRequest(Long productId, String token) throws IOException, InterruptedException {
         String body = "{\"itemId\": " + productId + "}";
-        System.out.println(body);
         HttpRequest request = HttpRequest.newBuilder()
-                .header("Authorization", "Bearr eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9" +
-                        ".eyJpc3MiOiJ0ZXN0IiwiaWF0IjoxNzExODA0NTA3LCJleHAiOjE3NDMzNjIxMDcsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJ1aWQiOiIxIn0.ZDiN7xEbql2tsSz_3WbKOSSr7Llt1XmXQGjgZro5jLk")
+                .header("Authorization", "Bearer "+token)
                 .header("content-type", "application/json")
                 .uri(URI.create("http://213.159.215.149:8080/order/Order/add-item-request"))
                 .method("POST", HttpRequest.BodyPublishers.ofString(body))

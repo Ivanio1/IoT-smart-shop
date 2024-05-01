@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.example.qrcoderesolver.model.OrderService;
 import com.example.qrcoderesolver.model.Product;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,13 @@ public class SamplesController {
     private OrderService orderService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<List<Product>> getAllProducts() throws IOException, InterruptedException {
-        return ResponseEntity.ok(orderService.getSamples());
+    public ResponseEntity<List<Product>> getAllProducts(HttpServletRequest request) throws IOException, InterruptedException {
+        return ResponseEntity.ok(orderService.getSamples(request.getHeader("Authorization")));
     }
 
     @GetMapping("/title/consume")
-    public ResponseEntity<Product> consumeQrCode(@RequestParam String title) throws IOException, InterruptedException {
-        var productO = orderService.getProductsByTitle(title).stream().max(Comparator.comparingInt(Product::getExpirationPoints));
+    public ResponseEntity<Product> consumeQrCode(@RequestParam String title, HttpServletRequest request) throws IOException, InterruptedException {
+        var productO = orderService.getProductsByTitle(title,request.getHeader("Authorization")).stream().max(Comparator.comparingInt(Product::getExpirationPoints));
         return productO.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 }
