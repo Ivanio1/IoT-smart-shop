@@ -43,6 +43,8 @@ function QRCode({onAdd}) {
                 if (text.status !== 404) {
                     let response = JSON.parse(text.responseText);
 
+                    onAdd(response)
+
                     const token = sessionStorage.getItem("token");
                     const fetchOptions = {
                         method: 'POST',
@@ -51,10 +53,8 @@ function QRCode({onAdd}) {
                             'Authorization': token
                         }
                     };
-                     await fetch(`${DEFAULT_URL}/product/add-item-request?productId=${response.id}`,fetchOptions);
+                    await fetch(`${DEFAULT_URL}/product/add-item-request?productId=${response.id}`,fetchOptions);
 
-
-                    onAdd(response)
 
                     Swal.fire({
                         title: "Товар успешно добавлен в корзину!",

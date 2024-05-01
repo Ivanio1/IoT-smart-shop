@@ -53,6 +53,7 @@ const ProductsTable = ({onAdd}) => {
     };
 
     const addToCart = async (product) => {
+        onAdd(product)
         const token = sessionStorage.getItem("token");
         const fetchOptions = {
             method: 'POST',
@@ -62,7 +63,7 @@ const ProductsTable = ({onAdd}) => {
             }
         };
         const response = await fetch(`${DEFAULT_URL}/product/add-item-request?productId=${product.id}`,fetchOptions);
-        onAdd(product)
+
     };
 
 

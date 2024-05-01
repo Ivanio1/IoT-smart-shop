@@ -51,6 +51,7 @@ public class PaymentController {
 
                     System.out.println(responseCode);
                     rabbitService.sendToTerminal(formatOrders(orders));
+                    System.out.println("");
                     return new ResponseMessage(200, "Payment successful!");
                 } else return new ResponseMessage(400, "Payment error!");
 
