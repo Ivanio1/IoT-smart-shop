@@ -42,7 +42,7 @@ public class PaymentController {
                 if (response.equals("OK")) {
                     HttpRequest request = HttpRequest.newBuilder()
                             .header("Authorization", "Bearer "+req.getHeader("Authorization"))
-                            .uri(URI.create("http://213.159.215.149:8080/order/Order/"))
+                            .uri(URI.create("http://213.159.215.149:8080/order/Order/submit-order"))
                             .build();
                     HttpClient client = HttpClient.newHttpClient();
                     HttpResponse<String> ordersResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
