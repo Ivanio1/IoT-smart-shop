@@ -84,11 +84,13 @@ export default function Header({orders, onDelete, fullDelete}) {
     }
 
     function sendReq(Str) {
+        const token = sessionStorage.getItem("token");
         let req = new XMLHttpRequest();
         req.open("POST", `${DEFAULT_URL}/pay?type=${Str}`, true);
         req.onload = () => handleResponse(req.responseText);
         req.onerror = () => alert("Сервер временно недоступен");
         req.setRequestHeader('Content-Type', 'application/json');
+        req.setRequestHeader('Authorization', token);
         req.send(JSON.stringify(orders));
 
     }
