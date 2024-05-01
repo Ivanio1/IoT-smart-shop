@@ -39,7 +39,7 @@ public class PaymentController {
                 byte[] buffer = new byte[1024];
                 int bytesRead = socket.getInputStream().read(buffer);
                 String response = new String(buffer, 0, bytesRead);
-                if (response.equals("OK")) {
+                if (response.equals("OKff")) {
                     HttpRequest request = HttpRequest.newBuilder()
                             .header("Authorization", "Bearer "+req.getHeader("Authorization"))
                             .method("POST", HttpRequest.BodyPublishers.noBody())
@@ -49,9 +49,7 @@ public class PaymentController {
                     HttpResponse<String> ordersResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
                     Integer responseCode = ordersResponse.statusCode();
 
-                    System.out.println(responseCode);
                     rabbitService.sendToTerminal(formatOrders(orders));
-                    System.out.println("");
                     return new ResponseMessage(200, "Payment successful!");
                 } else return new ResponseMessage(400, "Payment error!");
 
