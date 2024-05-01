@@ -25,21 +25,35 @@ function QRCode({onAdd}) {
             };
 
             const qrCodeSuccess = (decodedText) => {
+                const token = sessionStorage.getItem("token");
                 setQrMessage(decodedText);
                 let req = new XMLHttpRequest();
                 req.open("GET", `${DEFAULT_URL}/samples/title/consume?title=${qrMessage}`, true);
                 req.onload = () => handleResponse(req);
                 req.onerror = () => alert("Сервер временно недоступен");
                 req.setRequestHeader('Content-Type', 'application/json');
+                req.setRequestHeader('Authorization', token);
                 req.send();
                 setEnabled(false)
 
 
             };
 
-            const handleResponse = (text) => {
+            const handleResponse = async (text) => {
                 if (text.status !== 404) {
                     let response = JSON.parse(text.responseText);
+
+                    const token = sessionStorage.getItem("token");
+                    const fetchOptions = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': token
+                        }
+                    };
+                     await fetch(`${DEFAULT_URL}/product/add-item-request?productId=${response.id}`,fetchOptions);
+
+
                     onAdd(response)
 
                     Swal.fire({

@@ -52,8 +52,16 @@ const ProductsTable = ({onAdd}) => {
 
     };
 
-    const addToCart = (product) => {
-
+    const addToCart = async (product) => {
+        const token = sessionStorage.getItem("token");
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            }
+        };
+        const response = await fetch(`${DEFAULT_URL}/product/add-item-request?productId=${product.id}`,fetchOptions);
         onAdd(product)
     };
 
