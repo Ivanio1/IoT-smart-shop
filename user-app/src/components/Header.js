@@ -107,9 +107,6 @@ export default function Header({orders, onDelete, fullDelete}) {
     return (
         <header className="head">
             <div>
-
-                <span className="logo">Умный магазин</span>
-
                 <FaShoppingCart onClick={() => setCartOpen(cartOpen = !cartOpen)}
                                 className={`shop-cart-button ${cartOpen && 'active'}`}/>
                 {cartOpen && (
